@@ -1,66 +1,228 @@
-# Movie Recommender — Streamlit removed
+# 🎬 Movie Recommendation System
 
-This version keeps the original FastAPI + TF-IDF + TMDB architecture and replaces the Streamlit UI with a normal HTML/CSS/JavaScript frontend.
+A full-stack movie recommendation web application built with **FastAPI, HTML, CSS, JavaScript, and Machine Learning**.
 
-## Included features
-- Netflix-style home page with Trending, Popular, Top Rated, Now Playing and Upcoming rows
-- TMDB search + suggestions
-- Movie details with poster/backdrop
-- Trailer button
-- TF-IDF + cosine-similarity recommendations
-- Genre recommendations
-- Login / signup with bcrypt
-- My List / favorites
-- Ratings and written reviews
-- Admin dashboard with users, review/favorite counts and feedback moderation
-- Existing `movie_rec.db` and original TF-IDF pickle files are preserved
+The system allows users to search for movies, view movie details, get personalized recommendations using **TF-IDF**, explore movies through **TMDB**, and manage their account, favorites, and feedback.
 
-## Project structure
+## 🚀 Features
+
+* 🔐 User Signup & Login
+* 🚪 Secure Logout
+* 🎬 Movie Search
+* 🤖 TF-IDF based Movie Recommendations
+* 🎥 TMDB movie information and posters
+* ⭐ Movie Ratings
+* ❤️ Add / Remove Favorites
+* 💬 User Feedback
+* 👤 User Profile
+* 🛠️ Admin functionality
+* 📱 Responsive web interface
+* ⚡ FastAPI backend
+* 🎨 HTML, CSS & JavaScript frontend
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* HTML5
+* CSS3
+* JavaScript
+
+### Backend
+
+* Python
+* FastAPI
+* Uvicorn
+
+### Machine Learning
+
+* Scikit-learn
+* TF-IDF Vectorization
+* Cosine Similarity
+* NumPy
+* Pandas
+* SciPy
+
+### Database
+
+* SQLite
+
+### External API
+
+* TMDB API
+
+### Authentication & Security
+
+* bcrypt
+* Starlette Session Middleware
+* Environment variables using `.env`
+
+## 📂 Project Structure
+
 ```text
-main.py
- database.py
- movie_rec.db
- model/
-   df.pkl
-   indices.pkl
-   tfidf.pkl
-   tfidf_matrix.pkl
- frontend/
-   index.html
- static/
-   css/style.css
-   js/app.js
- requirements.txt
- .env.example
+movie-recommendation-system/
+│
+├── frontend/
+│   └── index.html
+│
+├── static/
+│   ├── css/
+│   └── js/
+│
+├── model/
+│   ├── df.pkl
+│   ├── indices.pkl
+│   ├── tfidf.pkl
+│   └── tfidf_matrix.pkl
+│
+├── main.py
+├── database.py
+├── requirements.txt
+├── run.bat
+├── .env.example
+├── .gitignore
+└── README.md
 ```
 
-## Important: copy your existing `.env`
-The original ZIP contained a `.env` with your TMDB API key. For security, this converted ZIP does NOT include that secret.
+## 🧠 How Recommendation Works
 
-Copy the `.env` file from your old project into this new project folder, or create a new `.env` using `.env.example`:
+The recommendation system uses **TF-IDF (Term Frequency-Inverse Document Frequency)** to convert movie information into numerical vectors.
+
+It then uses **Cosine Similarity** to compare movies and find movies that are similar to the movie selected by the user.
+
+The application combines the local recommendation model with **TMDB API** data to provide movie posters, ratings, release dates, and other movie information.
+
+## 🔑 TMDB API Setup
+
+This project requires a TMDB API key.
+
+Create a `.env` file in the project root:
 
 ```env
-TMDB_API_KEY=your_key
-SESSION_SECRET=some_random_long_value
-ADMIN_EMAIL=admin@gmail.com
+TMDB_API_KEY=your_tmdb_api_key
+SESSION_SECRET=your_secret_key
+ADMIN_EMAIL=your_admin_email
 ```
 
-## Run on Windows
+**Important:** Never upload your `.env` file to GitHub.
 
-Open this folder in VS Code and run:
+The `.env` file is already excluded through `.gitignore`.
+
+## ⚙️ Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/ganeshborase769/movie-recommendation-system.git
+```
+
+Go to the project directory:
+
+```bash
+cd movie-recommendation-system
+```
+
+Create a virtual environment:
+
+```bash
+python -m venv venv
+```
+
+Activate the virtual environment on Windows:
 
 ```powershell
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
-python -m uvicorn main:app --reload
+venv\Scripts\Activate.ps1
 ```
 
-Open:
+Install dependencies:
 
-`http://127.0.0.1:8000`
+```bash
+pip install -r requirements.txt
+```
 
-Do NOT run Streamlit. There is no Streamlit dependency in this version.
+Create your `.env` file using `.env.example` and add your TMDB API key.
 
-## Existing account/database
-The original `movie_rec.db` is included, so existing users, favorites and feedback are retained. If you change the database schema later, keep a backup first.
+## ▶️ Run the Application
+
+Start the FastAPI server:
+
+```bash
+uvicorn main:app --reload
+```
+
+The application will run at:
+
+```text
+http://127.0.0.1:8000
+```
+
+Open the URL in your browser.
+
+## 🔍 API
+
+The backend provides APIs for:
+
+* Authentication
+* Movie search
+* Movie recommendations
+* TMDB movie data
+* Favorites
+* Feedback
+* User information
+* Health check
+
+FastAPI automatically provides API documentation at:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+## 📊 Machine Learning Model
+
+The project contains pre-trained recommendation resources:
+
+* `df.pkl` — movie dataset
+* `indices.pkl` — movie title index mapping
+* `tfidf.pkl` — TF-IDF vectorizer
+* `tfidf_matrix.pkl` — TF-IDF feature matrix
+
+These files are used by the FastAPI backend to generate movie recommendations.
+
+## 🔒 Security
+
+Sensitive configuration is stored in environment variables.
+
+The following files are excluded from Git:
+
+```text
+.env
+venv/
+__pycache__/
+*.pyc
+movie_rec.db
+frontend.zip
+```
+
+## 📌 Future Improvements
+
+* 🎞️ Trending Movies section
+* 🌟 Top Rated Movies section
+* 🇮🇳 Bollywood movie discovery
+* 🎭 Genre-based search
+* 👨‍🎤 Actor-based search
+* 🎯 Improved recommendation algorithms
+* ☁️ Cloud deployment
+* 📱 Further UI/UX improvements
+
+## 👨‍💻 Developer
+
+**Ganesh Borase**
+
+MCA Student | Aspiring Full Stack Developer
+
+GitHub:
+https://github.com/ganeshborase769
+
+## 📄 License
+
+This project is created for educational and portfolio purposes.
